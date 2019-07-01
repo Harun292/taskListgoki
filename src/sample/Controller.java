@@ -1,7 +1,5 @@
 package sample;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
@@ -44,31 +42,23 @@ public class Controller implements Initializable {
         taskDueField.valueProperty().bindBidirectional(model.getCurrentTask().dueDateProperty());
 
 
-        taskList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observableValue, Object o, Object t1) {
-                model.setCurrentTask(taskList.getSelectionModel().getSelectedItem());
-            }
-        });
+        taskList.getSelectionModel().selectedItemProperty().addListener((observableValue, oldTask, newTask) -> model.setCurrentTask(taskList.getSelectionModel().getSelectedItem()));
 
-        model.currentTaskProperty().addListener(new ChangeListener<Task>() {
-            @Override
-            public void changed(ObservableValue<? extends Task> observableValue, Task oldTask, Task newTask) {
-                if(oldTask != null) {
-                    taskNameField.textProperty().unbindBidirectional(oldTask.nameProperty());
-                    taskTextArea.textProperty().unbindBidirectional(oldTask.descriptionProperty());
-                    taskDueField.valueProperty().unbindBidirectional(oldTask.dueDateProperty());
-                }
-                if(newTask == null) {
-                    taskNameField.setText("");
-                    taskTextArea.setText("");
-                    taskDueField.setValue(LocalDate.now());
-                }
-                else {
-                    taskNameField.textProperty().bindBidirectional(newTask.nameProperty());
-                    taskTextArea.textProperty().bindBidirectional(newTask.descriptionProperty());
-                    taskDueField.valueProperty().bindBidirectional(newTask.dueDateProperty());
-                }
+        model.currentTaskProperty().addListener((observableValue, oldTask, newTask) -> {
+            if(oldTask != null) {
+                taskNameField.textProperty().unbindBidirectional(oldTask.nameProperty());
+                taskTextArea.textProperty().unbindBidirectional(oldTask.descriptionProperty());
+                taskDueField.valueProperty().unbindBidirectional(oldTask.dueDateProperty());
+            }
+            if(newTask == null) {
+                taskNameField.setText("");
+                taskTextArea.setText("");
+                taskDueField.setValue(LocalDate.now());
+            }
+            else {
+                taskNameField.textProperty().bindBidirectional(newTask.nameProperty());
+                taskTextArea.textProperty().bindBidirectional(newTask.descriptionProperty());
+                taskDueField.valueProperty().bindBidirectional(newTask.dueDateProperty());
             }
         });
 
