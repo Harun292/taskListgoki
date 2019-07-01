@@ -5,6 +5,8 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.time.LocalDate;
+
 public class TaskModel {
     ObservableList<Task> tasks = FXCollections.observableArrayList();
     ObjectProperty<Task> currentTask = new SimpleObjectProperty<>();
@@ -33,9 +35,9 @@ public class TaskModel {
     }
 
     public void initiate() {
-        tasks.add(new Task("Buy Milk", "Go buy some milk"));
-        tasks.add(new Task("Learn", "Go to college"));
-        tasks.add(new Task("Exercise", "Hit the gym"));
+        tasks.add(new Task("Buy Milk", "Go buy some milk", LocalDate.now()));
+        tasks.add(new Task("Learn", "Go to college",LocalDate.now()));
+        tasks.add(new Task("Exercise", "Hit the gym",LocalDate.now()));
     }
 
     public void addTask(Task task) {

@@ -19,15 +19,15 @@
     </ListView>
     <Label text="Task: " GridPane.columnIndex="1" GridPane.rowIndex="0" />
     <Label text="Due: " GridPane.columnIndex="1" GridPane.rowIndex="1" />
-    <TextField fx:id="taskNameField" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+    <TextField fx:id="taskNameField" promptText="Enter task name..." GridPane.columnIndex="2" GridPane.rowIndex="0" />
    <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="4">
      <buttons>
        <Button mnemonicParsing="false" onAction="#removeTask" text="Remove" />
          <Button mnemonicParsing="false" onAction="#addTask" text="Add" />
      </buttons>
    </ButtonBar>
-   <TextArea fx:id="taskTextArea" prefHeight="200.0" prefWidth="200.0" wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="2" />
-   <DatePicker fx:id="taskDueField" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+   <TextArea fx:id="taskTextArea" prefHeight="200.0" prefWidth="200.0" promptText="Enter task..." wrapText="true" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="2" />
+   <DatePicker fx:id="taskDueField" promptText="Enter task due date..." GridPane.columnIndex="2" GridPane.rowIndex="1" />
    <columnConstraints>
       <ColumnConstraints hgrow="ALWAYS" />
       <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="-Infinity" />

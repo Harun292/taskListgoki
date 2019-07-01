@@ -10,6 +10,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -40,6 +41,7 @@ public class Controller implements Initializable {
 
         taskNameField.textProperty().bindBidirectional(model.getCurrentTask().nameProperty());
         taskTextArea.textProperty().bindBidirectional(model.getCurrentTask().descriptionProperty());
+        taskDueField.valueProperty().bindBidirectional(model.getCurrentTask().dueDateProperty());
 
 
         taskList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
@@ -55,14 +57,17 @@ public class Controller implements Initializable {
                 if(oldTask != null) {
                     taskNameField.textProperty().unbindBidirectional(oldTask.nameProperty());
                     taskTextArea.textProperty().unbindBidirectional(oldTask.descriptionProperty());
+                    taskDueField.valueProperty().unbindBidirectional(oldTask.dueDateProperty());
                 }
                 if(newTask == null) {
                     taskNameField.setText("");
                     taskTextArea.setText("");
+                    taskDueField.setValue(LocalDate.now());
                 }
                 else {
                     taskNameField.textProperty().bindBidirectional(newTask.nameProperty());
                     taskTextArea.textProperty().bindBidirectional(newTask.descriptionProperty());
+                    taskDueField.valueProperty().bindBidirectional(newTask.dueDateProperty());
                 }
             }
         });
