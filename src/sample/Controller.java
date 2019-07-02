@@ -1,5 +1,7 @@
 package sample;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
@@ -36,7 +38,15 @@ public class Controller implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         taskList.setItems(model.getTasks());
         model.setCurrentTask(model.getTasks().get(0));
-
+        taskTextArea.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                if(taskNameField.getText().isEmpty())
+                    taskNameField.getStyleClass().addAll("nijeValidna");
+                else
+                    taskNameField.getStyleClass().removeAll("nijeValidna");
+            }
+        });
         taskNameField.textProperty().bindBidirectional(model.getCurrentTask().nameProperty());
         taskTextArea.textProperty().bindBidirectional(model.getCurrentTask().descriptionProperty());
         taskDueField.valueProperty().bindBidirectional(model.getCurrentTask().dueDateProperty());
@@ -63,6 +73,10 @@ public class Controller implements Initializable {
         });
 
     }
-
+    private boolean validacija(){
+        if(taskNameField.getText().isEmpty())
+            return true;
+        return false;
+    }
 
 }
